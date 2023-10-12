@@ -11,12 +11,12 @@ Stack::Stack()
     std::cout << "Stack initialized" << std::endl;
 }
 
-Stack::Stack(const Stack &source) 
+Stack::Stack(const Stack &source)
     : top_element(source.top_element), size(source.size)
 {
     array = (int *)malloc(sizeof(int) * size);
     alloc_check();
-    for (int i = 0; i < top_element; i++)    
+    for (int i = 0; i < top_element; i++)
     {
         array[i] = source.array[i];
     }
@@ -29,20 +29,27 @@ Stack::~Stack()
     std::cout << "Stack destroyed" << std::endl;
 }
 
-
 Stack &Stack::operator=(const Stack &source)
 {
     std::cout << "Assignment operator" << std::endl;
-    if(this == &source)
+    if (this == &source)
         return *this;
-    top_element = source.top_element;
-    size = source.size;
-    free(array);
-    array = (int *)malloc(sizeof(int) * size);
-    alloc_check();
-    for (int i = 0; i < source.top_element; i++)
+
+    if (size >= source.size)
     {
-        array[i] = source.array[i];
+        top_element = source.top_element;
+        for (int i = 0; i < top_element; i++)
+            array[i] = source.array[i];
+    }
+    else
+    {
+        free(array);
+        top_element = source.top_element;
+        size = source.size;
+        array = (int *)malloc(sizeof(int) * size);
+        alloc_check();
+        for (int i = 0; i < source.top_element; i++)
+            array[i] = source.array[i];
     }
     std::cout << "Stack assignment completed" << std::endl;
 
@@ -97,7 +104,6 @@ void Stack::get_stack()
     {
         std::cout << array[i] << std::endl;
     }
-    
 }
 
 void pop_last_value1(Stack s)
