@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Stack.h"
 
-int main()
+void test_stack1()
 {
     Stack s1;
 
@@ -21,16 +21,31 @@ int main()
 
     Stack s4;
     s4.push(10);
-    s2 = s4;
-    s2.get_stack();
-    s4 = s1;
+    s1 = s4;
+    s1.get_stack();
+    s4 = s2;
     s4.get_stack();
+}
 
+void test_stack2()
+{
     std::cout << "=============" << std::endl;
-    pop_last_value1(s4);
-    s4.get_stack();
-    pop_last_value2(s4);
-    s4.get_stack();
+    Stack s5;
+    for (int i = 5; i < 8; i++)
+    {
+        s5.push(i);
+    }
+    pop_last_value1(s5);
+    s5.get_stack();
+    pop_last_value2(s5);
+    s5.get_stack();
+}
+
+
+int main()
+{ 
+    test_stack1();
+    test_stack2();
 
     return 0;
 }
